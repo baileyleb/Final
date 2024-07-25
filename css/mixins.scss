@@ -1,0 +1,12 @@
+/* 
+ author: Bailey L.  Last Updated: 2024-07-25
+*/
+
+//adds outline to text
+@mixin outline($colour, $magnitude){
+        text-shadow:
+        $magnitude $magnitude 0 $colour,
+        -$magnitude $magnitude 0 $colour,
+        -$magnitude -$magnitude 0 $colour,
+        $magnitude -$magnitude 0 $colour;
+}

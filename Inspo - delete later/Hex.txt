@@ -1,0 +1,12 @@
+solitaire bg: #1d7c4e
+mine bg: #c0c0c0
+smile: #f9f926
+score text: #a92524
+score bg:#090000
+dark grey: #7f8180
+blue: #0808c3
+green: #186d1a
+red: #cf1413
+sys blue: #026aff
+sys red: #c65e39
+sys white: #ede9ff

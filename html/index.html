@@ -9,7 +9,6 @@
         <link rel="stylesheet" href="../css/style.css">
 
         <!--Scripts-->
-        <script src="../scripts/menu.js" defer="defer"></script>
         <script src="../scripts/script.js" defer="defer"></script>
         <script src="https://kit.fontawesome.com/2e69d3e300.js"
             crossorigin="2e69d3e300"></script>
@@ -34,16 +33,15 @@
             <header>
                 <div id="top-bar">
                     <h1>DICE GAME</h1>
-                    <button class="button">MENU</button>
+                    <audio loop controls id="bgm">
+                        <source src="../sounds/casino-ambiance.wav">
+                    </audio>
                 </div>
-                <nav>
-                    <ul>
-                        <li><a href="index.html"
-                                class="nav-link">Home</a></li>
-                    </ul>
-                </nav>
             </header>
             <main>
+                <section>
+                    <button id="roll">roll</button>
+                </section>
             </main>
             <footer>
             </footer>

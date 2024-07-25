@@ -33,14 +33,29 @@
             <header>
                 <div id="top-bar">
                     <h1>DICE GAME</h1>
-                    <audio loop controls id="bgm">
+                    <button class="button" id="music">MUSIC</button>
+                    <audio loop controls id="bgm" class="sr-only">
                         <source src="../sounds/casino-ambiance.wav">
                     </audio>
                 </div>
             </header>
             <main>
-                <section>
-                    <button id="roll">roll</button>
+                <section class="shadow">
+                    <h2>Let's Roll!</h2>
+                    <div class="grid" id="diceArea">
+                        <div id="playerDiceArea" class="hide">
+                            <img src="../images/dice/3_dots.png">
+                            <img src="../images/dice/3_dots.png">
+                        </div>
+                        <div id="computerDiceArea" class="hide">
+                            <img src="../images/dice/3_dots.png">
+                            <img src="../images/dice/3_dots.png">
+                        </div>
+                    </div>
+                    <img src="../images/dice/dice-game.gif" class="center-img">
+                    <div id="actions" class="grid">
+                        <button id="roll">roll</button>
+                    </div>
                 </section>
             </main>
             <footer>

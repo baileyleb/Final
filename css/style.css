@@ -321,6 +321,9 @@ template {
   border: 0;
 }
 
+/* 
+ author: Bailey L.  Last Updated: 2024-07-25
+*/
 /*Variables*/
 :root {
   /*colours*/
@@ -486,6 +489,15 @@ footer ul {
 
 .shadow {
   box-shadow: inset -1px -1px var(--black), inset 1px 1px var(--light-grey), inset -2px -2px var(--dark-grey), inset 2px 2px var(--white);
+}
+
+.center-img {
+  display: block;
+  margin: 0 auto;
+}
+
+.hide * {
+  display: none;
 }
 
 /*ID Tags*/

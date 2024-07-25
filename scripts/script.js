@@ -69,3 +69,32 @@ console.log(user.dice1, user.dice2,user.currentScore);
 console.log(computer.dice1, computer.dice2,computer.currentScore);
 
 //sounds
+const sfxRoll = new Audio("../sounds/rolling-and-dropping.wav");
+const sfxWin = new Audio("../sounds/win.wav");
+const sfxLose = new Audio("../sounds/lose.wav");
+const sfxStart = new Audio("../sounds/start.wav");
+
+
+
+/* const roll = document.getElementById("roll");
+roll.addEventListener("click", function(){
+    sfxStart.play();
+}); */
+
+//bgm
+const bgm = document.getElementById("bgm");
+const music = document.getElementById("music");
+let isPlaying = false;
+
+music.addEventListener("click", function(){
+    if (!isPlaying){
+        bgm.play();
+        music.innerHTML = "MUTE";
+        isPlaying = true;
+    }
+    else{
+        bgm.pause();
+        music.innerHTML = "MUSIC";
+        isPlaying = false;
+    }
+});

@@ -496,7 +496,7 @@ footer ul {
   margin: 0 auto;
 }
 
-.hide * {
+.hide {
   display: none;
 }
 

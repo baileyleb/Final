@@ -31,7 +31,7 @@
     <body>
         <div id="wrapper" class="shadow">
             <header>
-                <div id="top-bar">
+                <div class="bar" id="top-bar">
                     <h1>DICE GAME</h1>
                     <button class="button" id="music">MUSIC</button>
                     <audio loop controls id="bgm" class="sr-only">
@@ -40,7 +40,7 @@
                 </div>
             </header>
             <main>
-                <section class="shadow">
+                <section class="shadow" id="game">
                     <h2>Let's Roll!</h2>
                     <div class="grid" id="diceArea">
                         <div id="playerDiceArea" class="hide">
@@ -52,11 +52,24 @@
                             <img src="../images/dice/3_dots.png" id="cDice2">
                         </div>
                     </div>
-                    <img src="../images/dice/dice-game.gif" class="center-img" id="splash">
+                    <img src="../images/dice/dice-game.gif" class="center-img"
+                        id="splash">
                     <div id="actions" class="grid">
                         <button id="start">Start</button>
                         <button id="roll" disabled>Roll</button>
                     </div>
+                </section>
+                <section class="shadow" id="rules">
+                    <div class="bar">
+                        <h2>Rules</h2>
+                    </div>
+                    <ul>
+                        <li>Best of Three</li>
+                        <li>Roll a 1 and score is 0</li>
+                        <li>Roll doubles and score is double</li>
+                        <li>Roll anything else and add them together</li>
+                        <li>Highest score wins!</li>
+                    </ul>
                 </section>
             </main>
             <footer>

@@ -28,23 +28,22 @@ class Player {
         this.name = name;
         this.dice1 = 0;
         this.dice2 = 0;
-        this.currentScore = 0;
-        this.totalScore = 0;
+        this.score = 0;
         this.numberWon = 0;
-        this.totalPlayed = 0;
+        this.rounds = 0;
     }
     //functions
     rollDice() {
         this.dice1 = Math.floor(Math.random() * diceFaces) + 1;
         this.dice2 = Math.floor(Math.random() * diceFaces) + 1;
         if (this.dice1 == this.dice2) {
-            this.currentScore = this.dice1 * 4;
+            this.score = this.dice1 * 4;
         }
         else if (this.dice1 == 1 || this.dice2 == 1) {
-            this.currentScore = 0;
+            this.score = 0;
         }
         else {
-            this.currentScore = this.dice1 + this.dice2;
+            this.score = this.dice1 + this.dice2;
         }
     }
 }
@@ -65,8 +64,8 @@ const user = new Player("Username");
 const computer = new Player("Computer");
 user.rollDice();
 computer.rollDice();
-console.log(user.dice1, user.dice2, user.currentScore);
-console.log(computer.dice1, computer.dice2, computer.currentScore);
+console.log(user.dice1, user.dice2, user.score);
+console.log(computer.dice1, computer.dice2, computer.score);
 
 //sounds
 const sfxRoll = new Audio("../sounds/rolling-and-dropping.wav");
@@ -130,10 +129,36 @@ roll.addEventListener("click", function () {
     pDice2.src = `../images/dice/${user.dice2}_dots.png`;
     cDice1.src = `../images/dice/${computer.dice1}_dots.png`;
     cDice2.src = `../images/dice/${computer.dice2}_dots.png`;
-    switch (compareScores(user.currentScore, computer.currentScore)) {
-        case "win": sfxWin.play(); break;
-        case "tie": sfxTie.play(); break;
-        case "lose": sfxLose.play(); break;
-        default: sfxTie.play(); break;
+    //add timers
+    switch (compareScores(user.score, computer.score)) {
+        case "win":
+            sfxWin.play();
+            user.numberWon++;
+            break;
+        case "tie":
+            sfxTie.play();
+            break;
+        case "lose":
+            sfxLose.play();
+            computer.numberWon++;
+            break;
+        default:
+            sfxTie.play();
+            break;
+    }
+    if (user.numberWon == 3 || computer.numberWon == 3) {
+        if (user.numberWon == 3) {
+            //win
+            user.rounds++;
+        }
+        else {
+            //lose
+            computer.rounds++;
+        }
+        //reset
+        user.numberWon = 0;
+        computer.numberWon = 0;
+        roll.setAttribute("disabled", true);
+        start.removeAttribute("disabled");
     }
 });

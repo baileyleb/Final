@@ -331,9 +331,11 @@ template {
   --light-grey: #bbbdb8;
   --white: #fdffff;
   --dark-blue: #010081;
+  --light-blue: #026aff;
   --blue: #008080;
   --black: #000000;
   --hot-pink: #ff0081;
+  --green: #1d7c4e;
 }
 
 /*Fonts*/
@@ -491,6 +493,11 @@ footer ul {
   box-shadow: inset -1px -1px var(--black), inset 1px 1px var(--light-grey), inset -2px -2px var(--dark-grey), inset 2px 2px var(--white);
 }
 
+.bar {
+  background: linear-gradient(90deg, var(--dark-blue), var(--light-blue));
+  margin: 0;
+}
+
 .center-img {
   display: block;
   margin: 0 auto;
@@ -516,7 +523,20 @@ footer ul {
   justify-content: space-between;
   align-items: center;
   padding: 0px 10px;
-  background: var(--dark-blue);
+}
+
+#game {
+  background-color: var(--green);
+}
+#game h2 {
+  color: var(--white);
+}
+
+#rules h2 {
+  padding: 3px 10px;
+  margin: 0;
+  color: var(--white);
+  text-shadow: 1px 1px 0 var(--black), -1px 1px 0 var(--black), -2px 0 var(--black), 0px 0 var(--black);
 }
 
 @media (min-width: 440px) {
@@ -539,5 +559,14 @@ footer ul {
   }
   #wrapper {
     margin: 10px auto;
+  }
+}
+@media (min-width: 1790px) {
+  #rules {
+    position: absolute;
+    width: 19vw;
+    left: 5px;
+    top: 50px;
+    background-color: var(--light-grey);
   }
 }

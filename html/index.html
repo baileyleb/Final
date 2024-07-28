@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
-    <!-- Author: Bailey L.  Last Updated: 2024-07-24 -->
+    <!-- Author: Bailey L.  Last Updated: 2024-07-28 -->
 
     <head>
         <title>DICE GAME | COMP 2132</title>
@@ -34,7 +34,7 @@
                 <div class="bar" id="top-bar">
                     <h1>DICE GAME</h1>
                     <button class="button" id="music">MUSIC</button>
-                    <audio loop controls id="bgm" class="sr-only">
+                    <audio loop id="bgm">
                         <source src="../sounds/casino-ambiance.wav">
                     </audio>
                 </div>
@@ -42,21 +42,23 @@
             <main>
                 <section class="shadow" id="game">
                     <h2 id="status">Let's Roll!</h2>
-                    <div class="collapse" id="diceArea">
-                        <div id="playerDiceArea" class="hide">
-                            <h3>Player</h3>
-                            <img src="../images/dice/3_dots.png" id="pDice1">
-                            <img src="../images/dice/3_dots.png" id="pDice2">
+                    <div class="grid">
+                        <div id="player-dice-area" class="hide">
+                            <h3>Player : <span id="player-total"></span></h3>
+                            <img src="../images/dice/3_dots.png" id="pDice1" alt="player's first die">
+                            <img src="../images/dice/3_dots.png" id="pDice2" alt="player's second die">
                         </div>
-                        <img src="../images/dice/dice-game.gif" class="center-img"
-                        id="splash">
-                        <div id="computerDiceArea" class="hide">
-                            <h3>Computer</h3>
-                            <img src="../images/dice/3_dots.png" id="cDice1">
-                            <img src="../images/dice/3_dots.png" id="cDice2">
+                        <img src="../images/dice/dice-game.gif"
+                            class="center-img"
+                            id="splash" alt="spinning dice animation">
+                        <div id="computer-dice-area" class="hide">
+                            <h3>Computer : <span
+                                    id="computer-total"></span></h3>
+                            <img src="../images/dice/3_dots.png" id="cDice1" alt="computer's first die">
+                            <img src="../images/dice/3_dots.png" id="cDice2" alt="computer's second die">
                         </div>
                     </div>
-                    <div id="actions" class="grid">
+                    <div class="grid">
                         <button id="start">Start</button>
                         <button id="roll" disabled>Roll</button>
                     </div>
@@ -71,15 +73,15 @@
                     </div>
                     <ul>
                         <li>Best of Three</li>
-                        <li>Roll a 1 and score is 0</li>
-                        <li>Roll doubles and score is double</li>
+                        <li>Roll a 1 and the score is 0</li>
+                        <li>Roll doubles and the score is doubled</li>
                         <li>Roll anything else and add them together</li>
                         <li>Highest score wins!</li>
                     </ul>
                     <div class="bar">
                         <h2>Stats</h2>
                     </div>
-                    <ul id="stats">
+                    <ul>
                         <li>Player Wins: <span id="player-wins"></span></li>
                         <li>Computer Wins: <span id="computer-wins"></span></li>
                         <li>Total Rounds: <span id="total-wins"></span></li>

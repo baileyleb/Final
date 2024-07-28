@@ -1,26 +1,5 @@
 /*author: Bailey L. last updated: 2024-07-24*/
 
-/*Create a dice game where a user plays against the computer. The user and the computer each 
-roll a pair of dice 3 times. After the third roll of the dice the player with highest score wins. 
-The scoring for the game works as follows: 
-- If any of the players two dice comes up as a 1 then the score for that round for the player 
-is 0. eg: if the player rolls a 6 and 1, they get a score of 0 
-- If the player rolls a pair of the same numbers then the players score is the total of the 
-two dice times 2. eg: if he player rolls 5 and 5, they get a score of (5+5)*2=20 
-- If the player rolls any other combination of dice other than the ones mentioned above 
-then the players score is the total value of the two dice, eg: player rolls a 3 and 2, player 
-gets a score of 3+2=5 
-The game should provide a text or graphical output showing the following: 
-- The current rolled dice values for the player and the computer. 
-- The score for this round for the player and the computer. 
-- The accumulated total score for the player and computer 
-The game should provide a button that will do the following: roll a pair dice for the player and 
-another pair of dice for the computer, calculate the score for each of the player’s then update 
-the browser display to reflect the state of the game. 
-After three rolls of the dice the game should total up the scores and display a message 
-displaying who the winner was.  
-The game should provide a button that will reset the game and start a new game */
-
 //game logic
 const diceFaces = 6;
 class Player {
@@ -52,7 +31,7 @@ function compareScores(playerScore, computerScore) {
     if (playerScore > computerScore) {
         return "win";
     }
-    if (playerScore == computerScore) {
+    else if (playerScore == computerScore) {
         return "tie";
     }
     else {
@@ -95,10 +74,10 @@ music.addEventListener("click", function () {
 //game
 
 const splash = document.getElementById("splash");
-const playerDiceArea = document.getElementById("playerDiceArea");
+const playerDiceArea = document.getElementById("player-dice-area");
 const pDice1 = document.getElementById("pDice1");
 const pDice2 = document.getElementById("pDice2");
-const computerDiceArea = document.getElementById("computerDiceArea");
+const computerDiceArea = document.getElementById("computer-dice-area");
 const cDice1 = document.getElementById("cDice1");
 const cDice2 = document.getElementById("cDice2");
 const roll = document.getElementById("roll");
@@ -109,6 +88,8 @@ const point = "<img src='../images/smile.png'>";
 const playerWins = document.getElementById("player-wins");
 const computerWins = document.getElementById("computer-wins");
 const totalWins = document.getElementById("total-wins");
+const playerTotal = document.getElementById("player-total");
+const computerTotal = document.getElementById("computer-total");
 
 const start = document.getElementById("start");
 start.addEventListener("click", function () {
@@ -122,6 +103,8 @@ start.addEventListener("click", function () {
     roll.removeAttribute("disabled");
     playerScore.innerHTML = "";
     computerScore.innerHTML = "";
+    playerTotal.innerHTML = "";
+    computerTotal.innerHTML = "";
     status.innerHTML = "Let's Roll!";
 });
 
@@ -136,6 +119,8 @@ roll.addEventListener("click", function () {
         pDice2.src = `../images/dice/${user.dice2}_dots.png`;
         cDice1.src = `../images/dice/${computer.dice1}_dots.png`;
         cDice2.src = `../images/dice/${computer.dice2}_dots.png`;
+        playerTotal.innerHTML = user.score;
+        computerTotal.innerHTML = computer.score;
         switch (compareScores(user.score, computer.score)) {
             case "win":
                 sfxWin.play();
@@ -163,10 +148,12 @@ roll.addEventListener("click", function () {
             if (user.numberWon >= 3) {
                 //win
                 user.rounds++;
+                status.innerHTML = "Player Wins Round.";
             }
             else {
                 //lose
                 computer.rounds++;
+                status.innerHTML = "Computer Wins Round."
             }
             //reset
             user.numberWon = 0;

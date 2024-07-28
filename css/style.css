@@ -1,6 +1,6 @@
 @charset "UTF-8";
 /* 
- author: Bailey L.  Last Updated: 2024-07-25
+ author: Bailey L.  Last Updated: 2024-07-28
 */
 /*Reset*/
 /*! normalize.css v8.0.0 | MIT License | github.com/necolas/normalize.css */
@@ -358,6 +358,9 @@ html {
   color: black;
   font-size: 20px;
   background-color: var(--blue);
+  background-image: url(../images/wide-field-transparent.webp);
+  background-position: bottom right;
+  background-repeat: repeat-x;
 }
 
 *,
@@ -556,12 +559,15 @@ footer ul {
     font-size: 24px;
   }
 }
-@media (min-width: 600px) {
+@media (min-width: 670px) {
   footer {
     grid-template-columns: 1fr 1fr;
   }
   .grid {
     grid-template-columns: 1fr 1fr;
+  }
+  #splash {
+    grid-column: 2 span;
   }
 }
 @media (min-width: 1100px) {

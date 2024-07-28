@@ -1,7 +1,7 @@
 @charset "utf-8";
 
 /* 
- author: Bailey L.  Last Updated: 2024-07-25
+ author: Bailey L.  Last Updated: 2024-07-28
 */
 
 /*Reset*/
@@ -48,6 +48,9 @@ html {
     color: black;
     font-size: 20px;
     background-color: var(--blue);
+    background-image: url(../images/wide-field-transparent.webp);
+    background-position: bottom right;
+    background-repeat: repeat-x;
 }
 
 *,
@@ -189,13 +192,11 @@ footer {
         inset 2px 2px var(--white);
 }
 
-.bar{
-    background: linear-gradient(
-    90deg,
-    var(--dark-blue),
-    var(--light-blue)
-  );
-  margin: 0;
+.bar {
+    background: linear-gradient(90deg,
+            var(--dark-blue),
+            var(--light-blue));
+    margin: 0;
 }
 
 .center-img {
@@ -227,10 +228,12 @@ footer {
 
 #game {
     background-color: var(--green);
-    h2{
+
+    h2 {
         color: var(--white);
     }
-    h3{
+
+    h3 {
         color: var(--white);
         margin: 15px;
     }
@@ -245,13 +248,15 @@ footer {
     }
 }
 
-#score{
+#score {
     display: flex;
     justify-content: space-between;
-    img{
+
+    img {
         max-height: 50px;
     }
 }
+
 
 @media (min-width: 440px) {
     html {
@@ -259,7 +264,7 @@ footer {
     }
 }
 
-@media (min-width: 600px) {
+@media (min-width: 670px) {
 
     footer {
         grid-template-columns: 1fr 1fr;
@@ -269,6 +274,9 @@ footer {
         grid-template-columns: 1fr 1fr;
     }
 
+    #splash {
+        grid-column: 2 span;
+    }
 }
 
 @media (min-width: 1100px) {

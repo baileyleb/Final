@@ -41,23 +41,29 @@
             </header>
             <main>
                 <section class="shadow" id="game">
-                    <h2>Let's Roll!</h2>
-                    <div class="grid" id="diceArea">
+                    <h2 id="status">Let's Roll!</h2>
+                    <div class="collapse" id="diceArea">
                         <div id="playerDiceArea" class="hide">
+                            <h3>Player</h3>
                             <img src="../images/dice/3_dots.png" id="pDice1">
                             <img src="../images/dice/3_dots.png" id="pDice2">
                         </div>
+                        <img src="../images/dice/dice-game.gif" class="center-img"
+                        id="splash">
                         <div id="computerDiceArea" class="hide">
+                            <h3>Computer</h3>
                             <img src="../images/dice/3_dots.png" id="cDice1">
                             <img src="../images/dice/3_dots.png" id="cDice2">
                         </div>
                     </div>
-                    <img src="../images/dice/dice-game.gif" class="center-img"
-                        id="splash">
                     <div id="actions" class="grid">
                         <button id="start">Start</button>
                         <button id="roll" disabled>Roll</button>
                     </div>
+                </section>
+                <section id="score">
+                    <div id="player-score"></div>
+                    <div id="computer-score"></div>
                 </section>
                 <section class="shadow" id="rules">
                     <div class="bar">
@@ -69,6 +75,14 @@
                         <li>Roll doubles and score is double</li>
                         <li>Roll anything else and add them together</li>
                         <li>Highest score wins!</li>
+                    </ul>
+                    <div class="bar">
+                        <h2>Stats</h2>
+                    </div>
+                    <ul id="stats">
+                        <li>Player Wins: <span id="player-wins"></span></li>
+                        <li>Computer Wins: <span id="computer-wins"></span></li>
+                        <li>Total Rounds: <span id="total-wins"></span></li>
                     </ul>
                 </section>
             </main>

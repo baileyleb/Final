@@ -230,6 +230,10 @@ footer {
     h2{
         color: var(--white);
     }
+    h3{
+        color: var(--white);
+        margin: 15px;
+    }
 }
 
 #rules {
@@ -238,6 +242,14 @@ footer {
         margin: 0;
         color: var(--white);
         @include outline(var(--black), 1px);
+    }
+}
+
+#score{
+    display: flex;
+    justify-content: space-between;
+    img{
+        max-height: 50px;
     }
 }
 

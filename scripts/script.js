@@ -68,16 +68,11 @@ console.log(user.dice1, user.dice2, user.score);
 console.log(computer.dice1, computer.dice2, computer.score);
 
 //sounds
-const sfxRoll = new Audio("../sounds/rolling-and-dropping.wav");
+const sfxRoll = new Audio("../sounds/dropping.wav");
 const sfxWin = new Audio("../sounds/win.wav");
 const sfxLose = new Audio("../sounds/lose.wav");
 const sfxStart = new Audio("../sounds/start.wav");
 const sfxTie = new Audio("../sounds/tie.wav");
-
-/* const roll = document.getElementById("roll");
-roll.addEventListener("click", function(){
-    sfxStart.play();
-}); */
 
 //bgm
 const bgm = document.getElementById("bgm");
@@ -107,6 +102,13 @@ const computerDiceArea = document.getElementById("computerDiceArea");
 const cDice1 = document.getElementById("cDice1");
 const cDice2 = document.getElementById("cDice2");
 const roll = document.getElementById("roll");
+const status = document.getElementById("status");
+const playerScore = document.getElementById("player-score");
+const computerScore = document.getElementById("computer-score");
+const point = "<img src='../images/smile.png'>";
+const playerWins = document.getElementById("player-wins");
+const computerWins = document.getElementById("computer-wins");
+const totalWins = document.getElementById("total-wins");
 
 const start = document.getElementById("start");
 start.addEventListener("click", function () {
@@ -118,47 +120,63 @@ start.addEventListener("click", function () {
     start.setAttribute("disabled", true);
     start.innerHTML = "Replay";
     roll.removeAttribute("disabled");
+    playerScore.innerHTML = "";
+    computerScore.innerHTML = "";
+    status.innerHTML = "Let's Roll!";
 });
 
-const round = 1;
+let timeoutHandler;
 roll.addEventListener("click", function () {
     sfxRoll.play();
     user.rollDice();
     computer.rollDice();
-    pDice1.src = `../images/dice/${user.dice1}_dots.png`;
-    pDice2.src = `../images/dice/${user.dice2}_dots.png`;
-    cDice1.src = `../images/dice/${computer.dice1}_dots.png`;
-    cDice2.src = `../images/dice/${computer.dice2}_dots.png`;
-    //add timers
-    switch (compareScores(user.score, computer.score)) {
-        case "win":
-            sfxWin.play();
-            user.numberWon++;
-            break;
-        case "tie":
-            sfxTie.play();
-            break;
-        case "lose":
-            sfxLose.play();
-            computer.numberWon++;
-            break;
-        default:
-            sfxTie.play();
-            break;
-    }
-    if (user.numberWon == 3 || computer.numberWon == 3) {
-        if (user.numberWon == 3) {
-            //win
-            user.rounds++;
+    roll.setAttribute("disabled", true);
+    timeoutHandler = setTimeout(function () {
+        pDice1.src = `../images/dice/${user.dice1}_dots.png`;
+        pDice2.src = `../images/dice/${user.dice2}_dots.png`;
+        cDice1.src = `../images/dice/${computer.dice1}_dots.png`;
+        cDice2.src = `../images/dice/${computer.dice2}_dots.png`;
+        switch (compareScores(user.score, computer.score)) {
+            case "win":
+                sfxWin.play();
+                user.numberWon++;
+                status.innerHTML = "Win!";
+                playerScore.innerHTML += point;
+                break;
+            case "tie":
+                sfxTie.play();
+                status.innerHTML = "Tie...";
+                break;
+            case "lose":
+                sfxLose.play();
+                computer.numberWon++;
+                status.innerHTML = "Lose.";
+                computerScore.innerHTML += point;
+                break;
+            default:
+                sfxTie.play();
+                status.innerHTML = "Error";
+                break;
         }
-        else {
-            //lose
-            computer.rounds++;
+        roll.removeAttribute("disabled");
+        if (user.numberWon >= 3 || computer.numberWon >= 3) {
+            if (user.numberWon >= 3) {
+                //win
+                user.rounds++;
+            }
+            else {
+                //lose
+                computer.rounds++;
+            }
+            //reset
+            user.numberWon = 0;
+            computer.numberWon = 0;
+            roll.setAttribute("disabled", true);
+            start.removeAttribute("disabled");
+            //update stats
+            playerWins.innerHTML = user.rounds;
+            computerWins.innerHTML = computer.rounds;
+            totalWins.innerHTML = user.rounds + computer.rounds;
         }
-        //reset
-        user.numberWon = 0;
-        computer.numberWon = 0;
-        roll.setAttribute("disabled", true);
-        start.removeAttribute("disabled");
-    }
+    }, 1000);
 });

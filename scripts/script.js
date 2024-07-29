@@ -1,99 +1,105 @@
-/*author: Bailey L. last updated: 2024-07-24*/
+/*
+author: Bailey L. last updated: 2024-07-28
+  ____
+ /\' .\     _____
+/: \___\   / .  /\
+\' / . /  /____/..\   DICE GAME
+ \/___/   \'  '\  /
+           \'__'\/
+*/
 
-//game logic
-const diceFaces = 6;
-class Player {
-    constructor(name) {
-        this.name = name;
-        this.dice1 = 0;
-        this.dice2 = 0;
-        this.score = 0;
-        this.numberWon = 0;
-        this.rounds = 0;
-    }
-    //functions
-    rollDice() {
-        this.dice1 = Math.floor(Math.random() * diceFaces) + 1;
-        this.dice2 = Math.floor(Math.random() * diceFaces) + 1;
-        if (this.dice1 == this.dice2) {
-            this.score = this.dice1 * 4;
-        }
-        else if (this.dice1 == 1 || this.dice2 == 1) {
-            this.score = 0;
-        }
-        else {
-            this.score = this.dice1 + this.dice2;
-        }
-    }
-}
+/*VARIABLES & CONSTANTS*/
 
-function compareScores(playerScore, computerScore) {
-    if (playerScore > computerScore) {
-        return "win";
-    }
-    else if (playerScore == computerScore) {
-        return "tie";
-    }
-    else {
-        return "lose";
-    }
-}
-
-const user = new Player("Username");
-const computer = new Player("Computer");
-user.rollDice();
-computer.rollDice();
-console.log(user.dice1, user.dice2, user.score);
-console.log(computer.dice1, computer.dice2, computer.score);
-
-//sounds
+//DOM elements
+const splash = document.getElementById("splash"); //splash image before game
+const playerDiceArea = document.getElementById("player-dice-area"); //div where player's dice are
+const pDice1 = document.getElementById("pDice1"); //display player's first die
+const pDice2 = document.getElementById("pDice2"); //display player's second die
+const computerDiceArea = document.getElementById("computer-dice-area"); //div where player's dice are
+const cDice1 = document.getElementById("cDice1"); //display computer's first die
+const cDice2 = document.getElementById("cDice2"); //display computer's second die
+const info = document.getElementById("info"); //display information to the user
+//stats
+const playerTotal = document.getElementById("player-total"); //display player's score for the current round
+const computerTotal = document.getElementById("computer-total"); //display computer's score for the current round
+const playerScore = document.getElementById("player-score"); //display player's rounds won (x/3)
+const computerScore = document.getElementById("computer-score"); //display computer's rounds won (x/3)
+const playerWins = document.getElementById("player-wins"); //display number of times player has won
+const computerWins = document.getElementById("computer-wins"); //display number of times computer has won
+const totalWins = document.getElementById("total-wins"); //display total number of games played
+//buttons
+const roll = document.getElementById("roll"); //roll dice button
+const start = document.getElementById("start"); //start game button
+const music = document.getElementById("music"); //music/mute button for background music
+const close = document.getElementById("close"); //button removes rules from sidebar
+//sound
+const bgm = document.getElementById("bgm"); //the audio player for the background music
+const sfxStart = new Audio("../sounds/start.wav");
 const sfxRoll = new Audio("../sounds/dropping.wav");
 const sfxWin = new Audio("../sounds/win.wav");
 const sfxLose = new Audio("../sounds/lose.wav");
-const sfxStart = new Audio("../sounds/start.wav");
 const sfxTie = new Audio("../sounds/tie.wav");
+//image files
+const point = "<img src='../images/smile.png'>"; //inserted html image to represent one point
+//game varibles
+const diceFaces = 6;
+//other
+let timeoutHandler;
+let isPlayingMusic = false;
 
-//bgm
-const bgm = document.getElementById("bgm");
-const music = document.getElementById("music");
-let isPlaying = false;
+/*GAME*/
 
+//player object
+class Player {
+    constructor() {
+        this.dice1 = 0;
+        this.dice2 = 0;
+        this.currentScore = 0;
+        this.roundsWon = 0;
+        this.totalWins = 0;
+    }
+
+    rollDice() {
+        this.dice1 = Math.floor(Math.random() * diceFaces) + 1;
+        this.dice2 = Math.floor(Math.random() * diceFaces) + 1;
+        if (this.dice1 == 1 || this.dice2 == 1) {
+            this.currentScore = 0;
+        }
+        else if (this.dice1 == this.dice2) {
+            this.currentScore = this.dice1 * 4;
+        }
+        else {
+            this.currentScore = this.dice1 + this.dice2;
+        }
+    }
+}
+
+//music button
 music.addEventListener("click", function () {
-    if (!isPlaying) {
+    if (!isPlayingMusic) {
         bgm.play();
         music.innerHTML = "MUTE";
-        isPlaying = true;
+        isPlayingMusic = true;
     }
     else {
         bgm.pause();
         music.innerHTML = "MUSIC";
-        isPlaying = false;
+        isPlayingMusic = false;
     }
 });
 
-//game
+const user = new Player();
+const computer = new Player();
 
-const splash = document.getElementById("splash");
-const playerDiceArea = document.getElementById("player-dice-area");
-const pDice1 = document.getElementById("pDice1");
-const pDice2 = document.getElementById("pDice2");
-const computerDiceArea = document.getElementById("computer-dice-area");
-const cDice1 = document.getElementById("cDice1");
-const cDice2 = document.getElementById("cDice2");
-const roll = document.getElementById("roll");
-const status = document.getElementById("status");
-const playerScore = document.getElementById("player-score");
-const computerScore = document.getElementById("computer-score");
-const point = "<img src='../images/smile.png'>";
-const playerWins = document.getElementById("player-wins");
-const computerWins = document.getElementById("computer-wins");
-const totalWins = document.getElementById("total-wins");
-const playerTotal = document.getElementById("player-total");
-const computerTotal = document.getElementById("computer-total");
-
-const start = document.getElementById("start");
+//start button
 start.addEventListener("click", function () {
-    //set-up
+    //reset game displays from last round
+    playerScore.innerHTML = "";
+    computerScore.innerHTML = "";
+    playerTotal.innerHTML = "";
+    computerTotal.innerHTML = "";
+    info.innerHTML = "Let's Roll!";
+    //set-up game
     splash.classList.add("hide");
     sfxStart.play();
     playerDiceArea.classList.remove("hide");
@@ -101,69 +107,66 @@ start.addEventListener("click", function () {
     start.setAttribute("disabled", true);
     start.innerHTML = "Replay";
     roll.removeAttribute("disabled");
-    playerScore.innerHTML = "";
-    computerScore.innerHTML = "";
-    playerTotal.innerHTML = "";
-    computerTotal.innerHTML = "";
-    status.innerHTML = "Let's Roll!";
 });
 
-let timeoutHandler;
+//roll button
 roll.addEventListener("click", function () {
+    roll.setAttribute("disabled", true);
     sfxRoll.play();
     user.rollDice();
     computer.rollDice();
-    roll.setAttribute("disabled", true);
+    //timeout to let rolling dice sfx play and avoid spam clicking
     timeoutHandler = setTimeout(function () {
         pDice1.src = `../images/dice/${user.dice1}_dots.png`;
         pDice2.src = `../images/dice/${user.dice2}_dots.png`;
         cDice1.src = `../images/dice/${computer.dice1}_dots.png`;
         cDice2.src = `../images/dice/${computer.dice2}_dots.png`;
-        playerTotal.innerHTML = user.score;
-        computerTotal.innerHTML = computer.score;
-        switch (compareScores(user.score, computer.score)) {
-            case "win":
-                sfxWin.play();
-                user.numberWon++;
-                status.innerHTML = "Win!";
-                playerScore.innerHTML += point;
-                break;
-            case "tie":
-                sfxTie.play();
-                status.innerHTML = "Tie...";
-                break;
-            case "lose":
-                sfxLose.play();
-                computer.numberWon++;
-                status.innerHTML = "Lose.";
-                computerScore.innerHTML += point;
-                break;
-            default:
-                sfxTie.play();
-                status.innerHTML = "Error";
-                break;
+        playerTotal.innerHTML = user.currentScore;
+        computerTotal.innerHTML = computer.currentScore;
+        if (user.currentScore > computer.currentScore) {
+            //player wins
+            sfxWin.play();
+            user.roundsWon++;
+            info.innerHTML = "Win!";
+            playerScore.innerHTML += point;
+        }
+        else if (user.currentScore == computer.currentScore) {
+            //tie
+            sfxTie.play();
+            info.innerHTML = "Tie...";
+        }
+        else {
+            //player loses
+            sfxLose.play();
+            computer.roundsWon++;
+            info.innerHTML = "Lose.";
+            computerScore.innerHTML += point;
         }
         roll.removeAttribute("disabled");
-        if (user.numberWon >= 3 || computer.numberWon >= 3) {
-            if (user.numberWon >= 3) {
-                //win
-                user.rounds++;
-                status.innerHTML = "Player Wins Round.";
+        if (user.roundsWon >= 3 || computer.roundsWon >= 3) {
+            if (user.roundsWon >= 3) {
+                user.totalWins++;
+                info.innerHTML = "Player Wins.";
             }
             else {
-                //lose
-                computer.rounds++;
-                status.innerHTML = "Computer Wins Round."
+                computer.totalWins++;
+                info.innerHTML = "Computer Wins."
             }
             //reset
-            user.numberWon = 0;
-            computer.numberWon = 0;
+            user.roundsWon = 0;
+            computer.roundsWon = 0;
             roll.setAttribute("disabled", true);
             start.removeAttribute("disabled");
             //update stats
-            playerWins.innerHTML = user.rounds;
-            computerWins.innerHTML = computer.rounds;
-            totalWins.innerHTML = user.rounds + computer.rounds;
+            playerWins.innerHTML = user.totalWins;
+            computerWins.innerHTML = computer.totalWins;
+            totalWins.innerHTML = user.totalWins + computer.totalWins;
         }
     }, 1000);
+});
+
+//close button
+close.addEventListener("click", function(){
+    document.getElementById("rules").removeAttribute("id");
+    close.style.display = "none";
 });

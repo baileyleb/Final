@@ -1,7 +1,7 @@
 @charset "utf-8";
 
 /* 
- author: Bailey L.  Last Updated: 2024-07-28
+ author: Bailey L.  Last Updated: 2024-07-29
 */
 
 /*Reset*/
@@ -20,6 +20,7 @@
     --black: #000000;
     --hot-pink: #ff0081;
     --green: #1d7c4e;
+    --red: #cf1413;
 }
 
 /*Fonts*/
@@ -197,6 +198,13 @@ footer {
             var(--dark-blue),
             var(--light-blue));
     margin: 0;
+    h2 {
+        padding: 3px 10px;
+        margin: 0;
+        color: var(--white);
+        @include outline(var(--black), 1px);
+        flex: 1;
+    }
 }
 
 .center-img {
@@ -239,15 +247,6 @@ footer {
     }
 }
 
-#rules {
-    h2 {
-        padding: 3px 10px;
-        margin: 0;
-        color: var(--white);
-        @include outline(var(--black), 1px);
-    }
-}
-
 #score {
     display: flex;
     justify-content: space-between;
@@ -257,6 +256,10 @@ footer {
     }
 }
 
+#close{
+    display: none;
+}
+
 
 @media (min-width: 440px) {
     html {
@@ -264,7 +267,7 @@ footer {
     }
 }
 
-@media (min-width: 670px) {
+@media (min-width: 750px) {
 
     footer {
         grid-template-columns: 1fr 1fr;
@@ -298,5 +301,10 @@ footer {
         left: 5px;
         top: 50px;
         background-color: var(--light-grey);
+    }
+    #close{
+        display: block;
+        color: var(--white);
+        background-color: var(--red);
     }
 }

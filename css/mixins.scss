@@ -6,7 +6,7 @@
 @mixin outline($colour, $magnitude){
         text-shadow:
         $magnitude $magnitude 0 $colour,
-        -$magnitude $magnitude 0 $colour,
-        -$magnitude -$magnitude 0 $colour,
-        $magnitude -$magnitude 0 $colour;
+        (-$magnitude) $magnitude 0 $colour,
+        (-$magnitude) (-$magnitude) 0 $colour,
+        $magnitude (-$magnitude) 0 $colour;
 }
